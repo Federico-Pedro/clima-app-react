@@ -32,7 +32,7 @@ body {
 }
 
 .container {
-    
+
     width: 60vw;
     margin: 25px;
     background: var(--fondo);
@@ -43,11 +43,11 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
+
 }
 
 h1 {
-    font-size: 0.9rem;
+    font-size: 1.5rem;
     font-weight: 800;
     color: var(--suave);
     text-transform: uppercase;
@@ -68,12 +68,11 @@ input[type="text"] {
     height: 50px;
     width: 75%;
     padding-left: 25px;
-
+    background-color: var(--fondo);
     color: var(--azul)
 }
 
 button {
-
     padding: 12px 20px;
     border: none;
     background: var(--fondo);
@@ -87,10 +86,14 @@ button {
     height: 50px;
 }
 
-button:hover {
-    color: var(--texto)
-    background-color: var(--sombra-oscura);
+.deep {
+    box-shadow: inset 4px 4px 8px var(--sombra-oscura), inset -4px -4px 8px var(--sombra-clara);
+    border-radius: 8px;
+    border: none;
+    margin: 15px;
+    padding: 25px;
 }
+
 
 input:focus {
     outline: none;
@@ -101,7 +104,7 @@ h2 {
 }
 
 p {
-    margin-bottom: 5px;
+    margin: 10px 0;
     font-size: 25px;
 }
 
@@ -114,17 +117,16 @@ img {
 }
 
 iframe {
-    width: 500px;
+    width: 75%;
     height: 350px;
     display: block;
     margin: 10px auto;
     border-radius: 10px;
-
 }
 
 @media (max-width:900px) {
     .container {
-        max-width: 80%;
+        max-width: 95vw;
     }
 
     h1 {
@@ -137,5 +139,13 @@ iframe {
 
     p {
         font-size: 16px;
+    }
+
+    button {
+        min-width: 100px;
+    }
+
+    form {
+        flex-direction: column;
     }
 }
