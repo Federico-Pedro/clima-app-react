@@ -8,7 +8,7 @@ export const WheatherApp = () => {
     const [weatherData, setWeatherData] = useState(null)
 
     const urlBase = 'https://api.openweathermap.org/data/2.5/weather'
-    const API_KEY = '1e82961c696b56c762abf27d96db4e75'
+    const API_KEY = import.meta.env.VITE_API_KEY
     const difKelvin = 273.15
 
 
