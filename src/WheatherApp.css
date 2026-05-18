@@ -94,6 +94,9 @@ button {
     padding: 25px;
 }
 
+.title {
+    margin-bottom: 30px;
+}
 
 input:focus {
     outline: none;

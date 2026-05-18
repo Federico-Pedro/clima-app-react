@@ -1,5 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './WheatherApp.css'
+import Thermometer from "./Thermometer";
+import DigitalClock from "./DigitalClock"
+import AnalogicalClock from "./AnalogicalClock"
 
 export const WheatherApp = () => {
 
@@ -8,8 +11,10 @@ export const WheatherApp = () => {
     const [weatherData, setWeatherData] = useState(null)
     const [error, setError] = useState(null)
 
+
     const urlBase = 'https://api.openweathermap.org/data/2.5/weather'
     const API_KEY = import.meta.env.VITE_API_KEY
+
     const difKelvin = 273.15
 
 
@@ -18,7 +23,7 @@ export const WheatherApp = () => {
         if (hora >= 19 || hora < 7) { document.body.classList.add('night-mode'); }
         else { document.body.classList.remove('night-mode'); }
     }
-    revisarModoNoche();
+    // revisarModoNoche();
     setInterval(revisarModoNoche, 60000);
 
 
@@ -40,6 +45,7 @@ export const WheatherApp = () => {
 
             const data = await response.json()
             setWeatherData(data)
+            console.log(data)
         } catch (error) {
             setError('Error de conexión')
         }
@@ -77,6 +83,11 @@ export const WheatherApp = () => {
                 </form>
 
                 {error && <h1>{error}</h1>}
+                <div className="deep">
+
+                    <p className="title">La hora actual es: </p>
+                    <AnalogicalClock />
+                </div>
 
             </div>
 
@@ -88,15 +99,27 @@ export const WheatherApp = () => {
                     <div className="deep">
 
                         <p>La temperatura actual es: {Math.floor(weatherData.main.temp - difKelvin)} ºC</p>
+                        <Thermometer value={Math.floor(weatherData.main.temp - difKelvin)} width={400} />
+
+                    </div>
+                    <div className="deep">
+
                         <p>La condición meteorológica actual es: {weatherData.weather[0].description} </p>
+                        <div className="icon">
+
+                            <img
+                                src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
+                                alt={weatherData.weather[0].description} />
+                        </div>
                     </div>
 
-                    <div className="icon">
+                    <div className="deep">
 
-                        <img
-                            src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
-                            alt={weatherData.weather[0].description} />
+                        <p>La hora actual es: </p>
+                        <DigitalClock />
                     </div>
+
+
 
                     <iframe src={`https://maps.google.com/maps?q=${weatherData.coord.lat},${weatherData.coord.lon}&hl=es;z=14&amp&output=embed`}></iframe>
 
