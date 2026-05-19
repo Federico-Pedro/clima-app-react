@@ -14,9 +14,11 @@ const angleHours = d3.scaleLinear()
     .domain([1, 13])
     .range([0, (2 * Math.PI)]);
 
-export default function GaugeChart({ value = 0, width = 400 }) {
+export default function GaugeChart({ value = 0, width = 400, nightMode }) {
+
 
     const [date, setDate] = useState(new Date())
+
 
     const seconds = date.getSeconds();
     const minutes = date.getMinutes();
@@ -27,7 +29,9 @@ export default function GaugeChart({ value = 0, width = 400 }) {
     const minuteNeedleRef = useRef(null);
     const hourNeedleRef = useRef(null);
 
+    const color = nightMode ? "#a3b1c6" : "#242424";
 
+    
     const height = width * 0.6;
     const cx = width / 2;
     const cy = height / 2;
@@ -58,7 +62,7 @@ export default function GaugeChart({ value = 0, width = 400 }) {
                 startAngle: angleHours(0),
                 endAngle: angleHours(360),
             }))
-            .attr("fill", "#242424")
+            .attr("fill", color)
             .attr("opacity", 0.85)
             .attr("transform", `translate(${cx}, ${cy})`);
 
@@ -76,7 +80,7 @@ export default function GaugeChart({ value = 0, width = 400 }) {
                 .attr("y1", cy + rOuter * Math.sin(angle - Math.PI / 2 + (2 * Math.PI / 12)))
                 .attr("x2", cx + rInner * Math.cos(angle - Math.PI / 2 + (2 * Math.PI / 12)))
                 .attr("y2", cy + rInner * Math.sin(angle - Math.PI / 2 + (2 * Math.PI / 12)))
-                .attr("stroke", "#242424")
+                .attr("stroke", color)
                 .attr("stroke-width", 1.5);
 
             // Etiqueta
@@ -87,7 +91,7 @@ export default function GaugeChart({ value = 0, width = 400 }) {
                 .attr("y", cy + rLabel * Math.sin(angle - Math.PI / 2 + (2 * Math.PI / 12)) + 4)
                 .attr("text-anchor", "middle")
                 .attr("font-size", "11px")
-                .attr("fill", "#242424")
+                .attr("fill", color)
                 .text(`${val}`);
 
         });
@@ -106,7 +110,7 @@ export default function GaugeChart({ value = 0, width = 400 }) {
                 .attr("y1", cy + rOuter * Math.sin(angle - Math.PI / 2 + (2 * Math.PI / 12)))
                 .attr("x2", cx + rInner * Math.cos(angle - Math.PI / 2 + (2 * Math.PI / 12)))
                 .attr("y2", cy + rInner * Math.sin(angle - Math.PI / 2 + (2 * Math.PI / 12)))
-                .attr("stroke", "#242424")
+                .attr("stroke", color)
                 .attr("stroke-width", 1);
 
         });
@@ -123,13 +127,13 @@ export default function GaugeChart({ value = 0, width = 400 }) {
             .attr("y1", 0)
             .attr("x2", 0)
             .attr("y2", -(innerRadius - 40))
-            .attr("stroke", "#000000")
+            .attr("stroke", color)
             .attr("stroke-width", 2.5)
             .attr("stroke-linecap", "round");
 
         needleHours.append("circle")
             .attr("r", 7)
-            .attr("fill", "#000000");
+            .attr("fill", color);
 
         needleHours.append("circle")
             .attr("r", 3.5)
@@ -139,10 +143,7 @@ export default function GaugeChart({ value = 0, width = 400 }) {
 
         const initialHour = angleHours(hours % 12) * (180 / Math.PI) + 30;
         needleHours.attr("transform", `translate(${cx}, ${cy}) rotate(${initialHour})`);
-        console.log(initialHour)
-
-
-
+        
 
         //Aguja de los minutos
         const needleMinutes = svg.append("g")
@@ -154,13 +155,13 @@ export default function GaugeChart({ value = 0, width = 400 }) {
             .attr("y1", 0)
             .attr("x2", 0)
             .attr("y2", -(innerRadius - 25))
-            .attr("stroke", "#161616")
+            .attr("stroke", color)
             .attr("stroke-width", 2.5)
             .attr("stroke-linecap", "round");
 
         needleMinutes.append("circle")
             .attr("r", 7)
-            .attr("fill", "#161616");
+            .attr("fill", color);
 
         needleMinutes.append("circle")
             .attr("r", 3.5)
@@ -200,7 +201,7 @@ export default function GaugeChart({ value = 0, width = 400 }) {
         const initialSec = angleSeconds(seconds) * (180 / Math.PI);
         needleSeconds.attr("transform", `translate(${cx}, ${cy}) rotate(${initialSec})`);
 
-    }, [width]); // se redibuja solo si cambia el tamaño
+    }, [width, color]); // se redibuja solo si cambia el tamaño
 
 
 

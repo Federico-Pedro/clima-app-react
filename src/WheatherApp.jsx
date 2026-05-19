@@ -10,6 +10,7 @@ export const WheatherApp = () => {
     const [city, setCity] = useState('')
     const [weatherData, setWeatherData] = useState(null)
     const [error, setError] = useState(null)
+    const [nightMode, setNightMode] = useState(false)
 
 
     const urlBase = 'https://api.openweathermap.org/data/2.5/weather'
@@ -18,15 +19,24 @@ export const WheatherApp = () => {
     const difKelvin = 273.15
 
 
-    function revisarModoNoche() {
-        const hora = new Date().getHours();
-        if (hora >= 19 || hora < 7) { document.body.classList.add('night-mode'); }
-        else { document.body.classList.remove('night-mode'); }
-    }
-    // revisarModoNoche();
-    setInterval(revisarModoNoche, 60000);
+    useEffect(() => {
+        function revisarModoNoche() {
+            const hora = new Date().getHours();
+            if (hora >= 19 || hora < 7) {
+                document.body.classList.add('night-mode');
+                setNightMode(true);
+            } else {
+                document.body.classList.remove('night-mode');
+                setNightMode(false);
+            }
+        }
 
+        revisarModoNoche();
+        const intervalo = setInterval(revisarModoNoche, 60000);
+        return () => clearInterval(intervalo);
+    }, []);
 
+    console.log(nightMode)
 
     const fetchWeatherData = async () => {
         setError(null)
@@ -86,7 +96,7 @@ export const WheatherApp = () => {
                 <div className="deep">
 
                     <p className="title">La hora actual es: </p>
-                    <AnalogicalClock />
+                    <AnalogicalClock nightMode={nightMode} />
                 </div>
 
             </div>
