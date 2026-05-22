@@ -20,20 +20,49 @@ body.night-mode {
 
 
 body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Segoe UI', sans-serif;
+    height: 100vh;
+    font-family: 'Segoe UI',
+        sans-serif;
     background: var(--fondo);
     color: var(--texto);
     margin: 0;
     padding: 15px;
     transition: background 0.8s ease;
+    /* border: #d63031 1px solid; */
 }
 
-.container {
+.card-small {
+    grid-column: span 1; /* ocupa 1 columna */
+    grid-row: span 1;
+}
 
-    width: 60vw;
+.card-wide {
+    grid-column: span 3; /* ocupa 3 columnas */
+    grid-row: span 1;
+}
+
+.card-widest {
+    grid-column: span 6; /* ocupa 3 columnas */
+    grid-row: span 1;
+}
+.card-tall {
+    grid-column: span 1;
+    grid-row: span 2;    /* ocupa 2 filas */
+}
+
+.card-large {
+    grid-column: span 2;
+    grid-row: span 3;    /* ocupa 2x2 */
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: 125px;
+    gap: 20px;
+}
+
+.header {
     margin: 25px;
     background: var(--fondo);
     padding: 25px;
@@ -41,21 +70,14 @@ body {
     box-shadow: 8px 8px 15px var(--sombra-oscura), -8px -8px 15px var(--sombra-clara);
     text-align: center;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    /* display: grid;
-    grid-template-columns: 1fr 1fr; */
-
-}
-
-h1 {
+    align-items: center;
     font-size: 1.5rem;
     font-weight: 800;
     color: var(--suave);
     text-transform: uppercase;
-    margin-bottom: 10px;
 }
+
+
 
 form {
     display: flex;
@@ -63,47 +85,27 @@ form {
     margin-bottom: 20px;
 }
 
-input[type="text"] {
+
+
+
+
+.card {
     box-shadow: inset 4px 4px 8px var(--sombra-oscura), inset -4px -4px 8px var(--sombra-clara);
     border-radius: 8px;
     border: none;
     margin: 15px;
-    height: 50px;
-    width: 75%;
-    padding-left: 25px;
-    background-color: var(--fondo);
-    color: var(--azul)
-}
-
-button {
-    padding: 12px 20px;
-    border: none;
-    background: var(--fondo);
-    border-radius: 15px;
-    box-shadow: 5px 5px 10px var(--sombra-oscura), -5px -5px 10px var(--sombra-clara);
-    cursor: pointer;
-    font-weight: bold;
-    color: var(--suave);
-    transition: 0.3s;
-    width: 20%;
-    height: 50px;
-}
-
-.deep {
-    box-shadow: inset 4px 4px 8px var(--sombra-oscura), inset -4px -4px 8px var(--sombra-clara);
-    border-radius: 8px;
-    border: none;
-    margin: 15px;
-    padding: 25px;
+    padding: 35px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    
 }
 
 .title {
     margin-bottom: 30px;
 }
 
-input:focus {
-    outline: none;
-}
 
 h2 {
     font-size: 30px;
@@ -112,6 +114,10 @@ h2 {
 p {
     margin: 10px 0;
     font-size: 25px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    font-family: 'Segoe UI', sans-serif;
+       
 }
 
 img {
@@ -120,6 +126,19 @@ img {
     margin-top: 10px;
     display: block;
     margin: 20px auto;
+}
+
+
+.icon {
+    margin: 25px;
+    background: var(--fondo);
+    border-radius: 25px;
+    box-shadow: 8px 8px 15px var(--sombra-oscura), -8px -8px 15px var(--sombra-clara);
+    display: flex;
+    align-items: center;
+    width: 250px;
+    
+    
 }
 
 iframe {
@@ -131,27 +150,5 @@ iframe {
 }
 
 @media (max-width:900px) {
-    .container {
-        max-width: 95vw;
-    }
-
-    h1 {
-        font-size: 30px;
-    }
-
-    h2 {
-        font-size: 20px;
-    }
-
-    p {
-        font-size: 16px;
-    }
-
-    button {
-        min-width: 100px;
-    }
-
-    form {
-        flex-direction: column;
-    }
+    
 }

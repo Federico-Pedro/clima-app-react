@@ -3,6 +3,7 @@ import './WheatherApp.css'
 import Thermometer from "./Thermometer";
 import DigitalClock from "./DigitalClock"
 import AnalogicalClock from "./AnalogicalClock"
+import Card from "./components/Card"
 
 export const WheatherApp = () => {
 
@@ -36,108 +37,73 @@ export const WheatherApp = () => {
         return () => clearInterval(intervalo);
     }, []);
 
-    console.log(nightMode)
 
-    const fetchWeatherData = async () => {
-        setError(null)
-        setWeatherData(null)
-        try {
-            const response = await fetch(`${urlBase}?q=${city}&appid=${API_KEY}&lang=es`)
-
-            if (response.status === 404) {
-                setError('Ciudad no encontrada')
-                return
-            }
-            if (response.status === 400) {
-                setError('Ingresá el nombre de una ciudad')
-                return
-            }
-
-            const data = await response.json()
-            setWeatherData(data)
-            console.log(data)
-        } catch (error) {
-            setError('Error de conexión')
+    //Gets user location, fetches wheater data on that location and sets it tu weatherData
+    useEffect(() => {
+        async function fetchInfo() {
+            const response = await fetch('http://ip-api.com/json/');
+            const location = await response.json();
+            console.log(location)
+            const weatherResponse = await fetch(`${urlBase}?q=${location.city}&appid=${API_KEY}&lang=es`);
+            const weatherData = await weatherResponse.json();
+            console.log(weatherData)
+            setWeatherData(weatherData);
+            setError(null)
         }
-    }
+        fetchInfo();
 
-
-
-    const handleCityChange = (event) => {
-        setCity(event.target.value)
-
-    }
-
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        fetchWeatherData()
-        setCity('')      //Vacía el input
-
-    }
+    }, []);
 
 
 
     return (
-        <>
-            <div className="container">
-                <h1>Weather App</h1>
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        placeholder="Ingresa ciudad"
-                        value={city}
-                        onChange={handleCityChange}
-                    />
-                    <button type="submit">Buscar</button>
-                </form>
+        <div className="dashboard">
 
-                {error && <h1>{error}</h1>}
-                <div className="deep">
-
-                    <p className="title">La hora actual es: </p>
-                    <AnalogicalClock nightMode={nightMode} />
-                </div>
-
+            <div className="header card-widest">
+                Dashboard - {weatherData?.name}, {weatherData?.sys?.country}
             </div>
 
 
+            <Card size="large">
+                <p>Local time</p>
+                <AnalogicalClock nightMode={nightMode} />
+            </Card>
+
+
+
             {weatherData && (
-                <div className="container">
-
-                    {weatherData && <h2>{weatherData.name}, {weatherData.sys.country}</h2>}
-                    <div className="deep">
-
-                        <p>La temperatura actual es: {Math.floor(weatherData.main.temp - difKelvin)} ºC</p>
+                <>
+                    
+                    <Card size="large">
+                        <p>Temperature {Math.floor(weatherData.main.temp - difKelvin)} ºC</p>
                         <Thermometer value={Math.floor(weatherData.main.temp - difKelvin)} width={400} />
 
-                    </div>
-                    <div className="deep">
+                    </Card>
 
-                        <p>La condición meteorológica actual es: {weatherData.weather[0].description} </p>
+
+                    <Card size="large">
+
+                        <p>Weather</p>
+                        
                         <div className="icon">
 
                             <img
                                 src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
                                 alt={weatherData.weather[0].description} />
                         </div>
-                    </div>
-
-                    <div className="deep">
-
-                        <p>La hora actual es: </p>
-                        <DigitalClock />
-                    </div>
-
+                    </Card>
+                    
+                    <Card size="large">
+                        <iframe src={`https://maps.google.com/maps?q=${weatherData.coord.lat},${weatherData.coord.lon}&hl=es;z=14&amp&output=embed`}></iframe>
+                    </Card>
+                </>
 
 
-                    <iframe src={`https://maps.google.com/maps?q=${weatherData.coord.lat},${weatherData.coord.lon}&hl=es;z=14&amp&output=embed`}></iframe>
 
-                </div>
             )}
 
 
-        </>
+        </div>
 
     )
 }
