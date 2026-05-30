@@ -6,7 +6,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/api/weather")
-@CrossOrigin(origins = "http://localhost:5173") // permite requests desde tu React
+@CrossOrigin(origins = {
+        "http://localhost:5173",
+        "https://local-dash-board.netlify.app/"
+})
 public class WeatherController {
 
     private final WebClient webClient;
