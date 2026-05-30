@@ -71,10 +71,11 @@ export const WheatherApp = () => {
             }
 
             // 2. Si no hay cache o expiró, hacés el fetch normal
-            const response = await fetch('https://ip-api.com/json/');
+            const response = await fetch('https://ipapi.co/json/');
             const location = await response.json();
-            const zip = location.zip;
-            const country = location.country
+            const zip = location.postal; // ← ojo, el campo se llama 'postal' en esta API, no 'zip'
+            const country = location.country_name; // ← también cambia
+            
             setCountry(country);
             const locationsResponse = await fetch(`${urlBase}api/weather/${zip}`);
             const locationsData = await locationsResponse.json();
