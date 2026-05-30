@@ -128,7 +128,7 @@ export default function GaugeChart({ value = 0, width = 400, nightMode }) {
             .attr("x2", 0)
             .attr("y2", -(innerRadius - 40))
             .attr("stroke", color)
-            .attr("stroke-width", 2.5)
+            .attr("stroke-width", 3)
             .attr("stroke-linecap", "round");
 
         needleHours.append("circle")

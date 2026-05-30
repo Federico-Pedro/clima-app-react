@@ -18,7 +18,7 @@ const angleScale = d3.scaleLinear()
   .domain([MIN, MAX])
   .range([-Math.PI / 2, Math.PI / 2]);
 
-export default function GaugeChart({ value = 20, width = 400 }) {
+export default function GaugeChart({ value = 20, width = 400, nightMode }) {
   const svgRef = useRef(null);
   const needleRef = useRef(null);
   const height = width * 0.6;
@@ -26,7 +26,7 @@ export default function GaugeChart({ value = 20, width = 400 }) {
   const cy = height * 0.88;
   const outerRadius = width * 0.38;
   const innerRadius = outerRadius * 0.85;
-
+  const color = nightMode ? "#a3b1c6" : "#242424";
   // Dibuja los arcos y ticks — solo se ejecuta una vez al montar
   useEffect(() => {
     const svg = d3.select(svgRef.current);
@@ -49,10 +49,10 @@ export default function GaugeChart({ value = 20, width = 400 }) {
     });
 
     // Ticks de escala
-    const tickValues = d3.range(MIN, MAX + 1, 10);
+    const tickValues = d3.range(MIN, MAX + 1, 5);
     tickValues.forEach((val) => {
       const angle = angleScale(val);
-      const isMajor = val % 20 === 0;
+      const isMajor = val % 5 === 0;
       const rOuter = outerRadius + 8;
       const rInner = outerRadius + (isMajor ? 2 : 4);
 
@@ -88,17 +88,17 @@ export default function GaugeChart({ value = 20, width = 400 }) {
       .attr("y1", 0)
       .attr("x2", 0)
       .attr("y2", -(innerRadius - 10))
-      .attr("stroke", "#333")
+      .attr("stroke", color)
       .attr("stroke-width", 2.5)
       .attr("stroke-linecap", "round");
 
     needleGroup.append("circle")
       .attr("r", 7)
-      .attr("fill", "#333");
+      .attr("fill", color);
 
     needleGroup.append("circle")
       .attr("r", 3.5)
-      .attr("fill", "white");
+      .attr("fill", !color);
 
     needleRef.current = needleGroup;
 

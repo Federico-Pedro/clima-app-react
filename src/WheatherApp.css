@@ -31,14 +31,37 @@ body {
     /* border: #d63031 1px solid; */
 }
 
+.up {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 8px 8px 15px var(--sombra-oscura), -8px -8px 15px var(--sombra-clara);
+    margin-bottom: 25px;
+    padding: 5px;
+    width: 60%;
+    height: 50px;
+    border-radius: 15px;
+}
+
+.round {
+    border-radius: 50% !important;
+    height:150px !important;
+    width: 150px !important;
+    padding: 15px
+}
+
+.shadow {
+    box-shadow: 8px 8px 15px var(--sombra-oscura), -8px -8px 15px var(--sombra-clara) !important;
+}
+
 .card-small {
-    grid-column: span 1; /* ocupa 1 columna */
-    grid-row: span 1;
+    grid-column: span 2; /* ocupa 1 columna */
+    grid-row: span 2;
 }
 
 .card-wide {
     grid-column: span 3; /* ocupa 3 columnas */
-    grid-row: span 1;
+    grid-row: span 2;
 }
 
 .card-widest {
@@ -46,8 +69,8 @@ body {
     grid-row: span 1;
 }
 .card-tall {
-    grid-column: span 1;
-    grid-row: span 2;    /* ocupa 2 filas */
+    grid-column: span 2;
+    grid-row: span 4;    /* ocupa 2 filas */
 }
 
 .card-large {
@@ -86,9 +109,6 @@ form {
 }
 
 
-
-
-
 .card {
     box-shadow: inset 4px 4px 8px var(--sombra-oscura), inset -4px -4px 8px var(--sombra-clara);
     border-radius: 8px;
@@ -113,11 +133,12 @@ h2 {
 
 p {
     margin: 10px 0;
-    font-size: 25px;
+    font-size: 20px;
     text-transform: uppercase;
     margin-bottom: 15px;
     font-family: 'Segoe UI', sans-serif;
-       
+    padding: 0;
+    height: 25px;  
 }
 
 img {
@@ -130,15 +151,16 @@ img {
 
 
 .icon {
-    margin: 25px;
+    margin: 50px 0;
     background: var(--fondo);
-    border-radius: 25px;
+    border-radius: 50%;
     box-shadow: 8px 8px 15px var(--sombra-oscura), -8px -8px 15px var(--sombra-clara);
+    background-color: #22272996;
     display: flex;
     align-items: center;
-    width: 250px;
-    
-    
+    justify-content: center;
+    padding: 25px;
+    font-size: 5rem;
 }
 
 iframe {
@@ -148,6 +170,37 @@ iframe {
     margin: 10px auto;
     border-radius: 10px;
 }
+
+.react-calendar {
+  border: none !important;
+  border-radius: 15px;
+  font-family: 'Segoe UI', sans-serif !important;
+  width: 100%;
+  background-color: var(--fondo) !important;
+}
+
+.react-calendar__tile--active {
+  background-color: transparent !important;
+  color: inherit !important;
+  
+}
+
+.react-calendar__tile:hover {
+  background-color: transparent !important;
+  cursor: default !important;
+}
+.react-calendar__tile--now:hover{
+    cursor: default !important;
+    background-color: var(--texto) !important;
+}
+
+.react-calendar__tile--now {
+  background-color: var(--texto) !important;
+  color: var(--sombra-clara);
+  border-radius: 8px;
+}
+
+
 
 @media (max-width:900px) {
     
