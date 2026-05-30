@@ -28,7 +28,7 @@ export const WheatherApp = () => {
     const [nightMode, setNightMode] = useState(false)
     const [hour, setHour] = useState(new Date().getHours())
 
-    const urlBase = "http://localhost:8080/";
+    const urlBase = import.meta.env.VITE_API_URL;
 
     const today = new Date();
 
