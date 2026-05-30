@@ -8,7 +8,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/api/weather")
 @CrossOrigin(origins = {
         "http://localhost:5173",
-        "https://local-dash-board.netlify.app/"
+        "https://local-dash-board.netlify.app"
 })
 public class WeatherController {
 
