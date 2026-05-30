@@ -71,7 +71,7 @@ export const WheatherApp = () => {
             }
 
             // 2. Si no hay cache o expiró, hacés el fetch normal
-            const response = await fetch('http://ip-api.com/json/');
+            const response = await fetch('https://ip-api.com/json/');
             const location = await response.json();
             const zip = location.zip;
             const country = location.country
